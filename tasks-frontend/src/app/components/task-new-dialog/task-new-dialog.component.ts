@@ -15,22 +15,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { MAT_DATE_FORMATS } from '@angular/material/core';
-import dayjs from 'dayjs';
+import { MAT_DATE_FORMATS, MatNativeDateModule } from '@angular/material/core';
+import { MY_DATE_FORMATS } from '../../utils/my_date_formats'; 
 
-export const MY_DATE_FORMATS = {
-  parse: {
-    dateInput: 'DD/MM/YYYY',
-  },
-  display: {
-    dateInput: 'DD/MM/YYYY',
-    monthYearLabel: 'MMM YYYY',
-    dateA11yLabel: 'DD/MM/YYYY',
-    monthYearA11yLabel: 'MMMM YYYY',
-  },
-};
+import dayjs from 'dayjs';
 
 @Component({
   selector: 'app-task-new-dialog',
@@ -96,6 +85,8 @@ export class TaskNewDialogComponent {
       this.dataSelecionada = data;
     }
   }
+
+  
 
   toDto(task: Task): TaskEdit {
     const dto: TaskEdit = {

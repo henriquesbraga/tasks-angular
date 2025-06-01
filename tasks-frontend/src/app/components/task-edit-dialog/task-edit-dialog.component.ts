@@ -128,6 +128,7 @@ export class TaskEditDialogComponent {
         });
       },
       error: (err) => {
+        console.log('err', err)
         this.snackBar.open('Erro ao atualizar tarefa!', 'Fechar', {
           duration: 3000,
           horizontalPosition: 'center',

@@ -12,7 +12,7 @@ import java.time.LocalDate;
 public record TaskUpdateDTO(
 
         @NotBlank(message = "Titulo é obrigatório")
-        @Size(min = 6, max = 20, message = "Username deve ter entre 6 e 20 caracteres")
+        @Size(min = 6, message = "Titulo deve ter no mínimo 6 caracteres")
         String title,
 
         @NotBlank(message = "Descrição é obrigatória")
