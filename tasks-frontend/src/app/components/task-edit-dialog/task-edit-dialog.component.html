@@ -1,0 +1,41 @@
+<h2 mat-dialog-title>Editar Tarefa</h2>
+
+<mat-dialog-content style="display: flex; flex-direction: column; gap: 1rem">
+  <mat-form-field appearance="fill">
+    <mat-label>Título</mat-label>
+    <input matInput [(ngModel)]="data.title" name="titulo" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Descrição</mat-label>
+    <input matInput [(ngModel)]="data.description" name="titulo" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Responsável</mat-label>
+    <mat-select [(ngModel)]="responsavelSelecionadoId" name="responsavel">
+      <mat-option *ngFor="let r of responsaveis" [value]="r.id">
+        {{ r.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Data final (deadline)</mat-label>
+    <input
+      required
+      matInput
+      [matDatepicker]="picker"
+      [(ngModel)]="dataSelecionada"
+      name="data"
+      (dateChange)="formatarData($event.value)"
+    />
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="dialogRef.close()">Cancelar</button>
+    <button mat-button  color="primary" (click)="salvar(data)">Salvar</button>
+  </mat-dialog-actions>
+</mat-dialog-content>

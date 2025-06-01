@@ -1,0 +1,64 @@
+<div class="login-wrapper">
+  <mat-card class="login-card">
+    <h2 class="title">Login</h2>
+
+    <form #form="ngForm" (ngSubmit)="login(form)" novalidate>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Usuário</mat-label>
+        <input matInput [(ngModel)]="username" name="username" required />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Senha</mat-label>
+        <input
+          matInput
+          type="password"
+          [type]="hidePassword ? 'password' : 'text'"
+          [(ngModel)]="password"
+          name="password"
+          required
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="togglePasswordVisibility()"
+          type="button"
+          [attr.aria-label]="'Toggle password visibility'"
+        >
+          <mat-icon>{{
+            hidePassword ? "visibility_off" : "visibility"
+          }}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <div *ngIf="error" class="error-msg">{{ error }}</div>
+
+      <button
+        mat-raised-button
+        color="primary"
+        class="full-width"
+        [disabled]="loading"
+      >
+        <ng-container *ngIf="!loading; else loadingTpl">Entrar</ng-container>
+        <ng-template #loadingTpl>
+          <mat-progress-spinner
+            diameter="20"
+            mode="indeterminate"
+            color="accent"
+            strokeWidth="3"
+            style="display: inline-block; vertical-align: middle"
+          ></mat-progress-spinner>
+        </ng-template>
+      </button>
+    </form>
+
+    <button
+      mat-stroked-button
+      color="primary"
+      class="full-width registerButton"
+      (click)="navigateToRegister()"
+    >
+      Criar nova conta
+    </button>
+  </mat-card>
+</div>

@@ -1,0 +1,92 @@
+.layout-container {
+  height: 100vh;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--mat-sys-on-primary);
+}
+
+.drawer {
+  width: 250px;
+}
+
+.main-content {
+  padding: 1rem;
+}
+
+.full-width {
+  width: 100%;
+}
+
+mat-form-field {
+  min-width: 150px;
+  flex: 1;
+}
+
+.layout-container {
+  height: 100vh;
+}
+
+.drawer {
+  width: 250px;
+}
+
+.filtros {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+mat-card {
+  margin: 1rem;
+  padding: 1rem;
+  width: 60%;
+}
+
+.main-content {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.selectables {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.expansible-filters {
+  background-color: var(--mat-sys-inverse-on-surface);
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+.actions-header,
+.actions-cell {
+  text-align: center;
+}
+
+.actions-cell {
+  align-items: center;
+}
+
+.btn-container {
+  flex: 1;
+  display: flex;
+  justify-content: end;
+  padding-right: 20px;
+}
+
+
+.home-table {
+  padding-left: 20px;
+  padding-right: 20px;
+}

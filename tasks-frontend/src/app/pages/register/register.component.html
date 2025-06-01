@@ -1,0 +1,65 @@
+<div class="login-wrapper">
+  <mat-card class="login-card">
+    <div class="headerContainer">
+      <button mat-icon-button (click)="goBack()" aria-label="Voltar">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <h2 class="title">Cadastre-se</h2>
+    </div>
+
+    <form #form="ngForm" (ngSubmit)="register(form)" novalidate>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Nome</mat-label>
+        <input matInput [(ngModel)]="name" name="name" required />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Nome de usuário</mat-label>
+        <input matInput [(ngModel)]="username" name="username" required />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Senha</mat-label>
+        <input
+          matInput
+          type="password"
+          [type]="hidePassword ? 'password' : 'text'"
+          [(ngModel)]="password"
+          name="password"
+          required
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="togglePasswordVisibility()"
+          type="button"
+          [attr.aria-label]="'Toggle password visibility'"
+        >
+          <mat-icon>{{
+            hidePassword ? "visibility_off" : "visibility"
+          }}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <div *ngIf="error" class="error-msg">{{ error }}</div>
+
+      <button
+        mat-raised-button
+        color="primary"
+        class="full-width"
+        [disabled]="loading"
+      >
+        <ng-container *ngIf="!loading; else loadingTpl">Cadastrar</ng-container>
+        <ng-template #loadingTpl>
+          <mat-progress-spinner
+            diameter="20"
+            mode="indeterminate"
+            color="accent"
+            strokeWidth="3"
+            style="display: inline-block; vertical-align: middle"
+          ></mat-progress-spinner>
+        </ng-template>
+      </button>
+    </form>
+  </mat-card>
+</div>

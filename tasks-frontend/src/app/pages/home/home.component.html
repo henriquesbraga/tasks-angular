@@ -1,0 +1,165 @@
+<mat-sidenav-container class="layout-container">
+  <!-- Drawer lateral -->
+  <mat-sidenav style="padding: 1rem" #drawer mode="over" class="drawer">
+    <h3>{{ username }}</h3>
+
+    <button class="full-width" mat-raised-button (click)="logout()">
+      Sair do sistema
+    </button>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <!-- Topbar -->
+    <mat-toolbar color="primary" class="topbar">
+      <button mat-icon-button (click)="drawer.toggle()" aria-label="Menu">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>Minha Aplicação</span>
+    </mat-toolbar>
+
+    <div class="main-content">
+      <mat-expansion-panel class="expansible-filters">
+        <mat-expansion-panel-header>Filtros</mat-expansion-panel-header>
+        <form class="filtros" (ngSubmit)="buscarTarefas()">
+          <!-- Número -->
+          <mat-form-field appearance="fill">
+            <mat-label>Número</mat-label>
+            <input
+              matInput
+              type="number"
+              [(ngModel)]="filtro.numero"
+              name="numero"
+            />
+          </mat-form-field>
+
+          <!-- Título/Descrição -->
+          <mat-form-field appearance="fill">
+            <mat-label>Título/Descrição</mat-label>
+            <input matInput [(ngModel)]="filtro.titulo" name="titulo" />
+          </mat-form-field>
+
+          <div class="selectables">
+            <!-- Responsável -->
+            <mat-form-field appearance="fill">
+              <mat-label>Responsável</mat-label>
+              <mat-select [(ngModel)]="filtro.responsavel" name="responsavel">
+                <mat-option *ngFor="let r of responsaveis" [value]="r.id">
+                  {{ r.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <!-- Situação -->
+            <mat-form-field appearance="fill">
+              <mat-label>Situação</mat-label>
+              <mat-select [(ngModel)]="filtro.situacao" name="situacao">
+                <mat-option *ngFor="let s of situacoes" [value]="s.value">
+                  {{ s.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <!-- Botão -->
+          <button mat-stroked-button color="secondary" type="submit">
+            Buscar Tarefas
+          </button>
+        </form>
+      </mat-expansion-panel>
+    </div>
+
+    <div class="loading-spinner" *ngIf="loading">
+      <mat-spinner diameter="50" color="primary"></mat-spinner>
+    </div>
+
+    
+    <div class="btn-container">
+      <button mat-flat-button (click)="newTask()">
+        <mat-icon>add</mat-icon>
+        Nova tarefa
+      </button>
+    </div>
+
+    <table
+      mat-table
+      [dataSource]="tasks"
+      class="home-table"
+      *ngIf="!loading && tasks.length > 0"
+    >
+      <ng-container matColumnDef="numero">
+        <th mat-header-cell *matHeaderCellDef>Número</th>
+        <td mat-cell *matCellDef="let task">{{ task.id }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef>Título</th>
+        <td mat-cell *matCellDef="let task">{{ task.title }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="responsable">
+        <th mat-header-cell *matHeaderCellDef>Reponsável</th>
+        <td mat-cell *matCellDef="let task">{{ task.personDto.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class="actions-header">Ações</th>
+        <td mat-cell *matCellDef="let task" class="actions-cell">
+          <button mat-icon-button color="primary" (click)="editarTask(task)">
+            <mat-icon>edit</mat-icon>
+          </button>
+
+          <button mat-icon-button color="warn" (click)="deleteTask(task.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+
+          <button
+            mat-icon-button
+            color="warn"
+            (click)="concludeTask(task)"
+            *ngIf="task.status != 'CONCLUIDA'"
+          >
+            <mat-icon>check</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <!-- <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>Descrição</th>
+        <td mat-cell *matCellDef="let task">{{ task.description }}</td>
+      </ng-container> -->
+
+      <!-- <ng-container matColumnDef="deadline">
+        <th mat-header-cell *matHeaderCellDef>Prazo</th>
+        <td mat-cell *matCellDef="let task">
+          {{ task.deadline | date : "dd/MM/yyyy" }}
+        </td>
+      </ng-container> -->
+
+      <!-- <ng-container matColumnDef="priority">
+        <th mat-header-cell *matHeaderCellDef>Prioridade</th>
+        <td mat-cell *matCellDef="let task">{{ task.priority }}</td>
+      </ng-container> -->
+
+      <!-- <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let task">{{ task.status }}</td>
+      </ng-container> -->
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <div
+      *ngIf="!loading && tasks.length === 0"
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 200px;
+        font-size: 1.2rem;
+      "
+    >
+      Nenhuma tarefa encontrada.
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

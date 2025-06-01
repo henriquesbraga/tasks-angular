@@ -1,0 +1,36 @@
+@import "@angular/material/prebuilt-themes/magenta-violet.css";
+
+.login-wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  background-color: var(--mat-sys-surface-bright);
+}
+
+.full-width {
+  width: 100%;
+}
+
+.error-msg {
+  color: var(--mat-sys-on-error-container);
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.title {
+  color: var(--mat-sys-on-surface);
+}
+
+.headerContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}

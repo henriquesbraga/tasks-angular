@@ -1,0 +1,101 @@
+<h2 mat-dialog-title>Nova Tarefa</h2>
+
+<form
+  style="display: flex; flex-direction: column; gap: 1rem"
+  #form="ngForm"
+  (ngSubmit)="salvar(form)"
+  autocomplete="off"
+>
+  <mat-dialog-content style="display: flex; flex-direction: column; gap: 1rem">
+    <mat-form-field appearance="fill">
+      <mat-label>Título</mat-label>
+      <input
+        matInput
+        required
+        [(ngModel)]="data.title"
+        name="title"
+        #title="ngModel"
+      />
+      <mat-error *ngIf="title.invalid && title.touched">
+        Título é obrigatório
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Descrição</mat-label>
+      <input
+        matInput
+        required
+        [(ngModel)]="data.description"
+        name="description"
+        #description="ngModel"
+      />
+      <mat-error *ngIf="description.invalid && description.touched">
+        Descrição é obrigatória
+      </mat-error>
+    </mat-form-field>
+
+    <div style="display: flex; flex-direction: row; gap: 10px">
+      <mat-form-field appearance="fill">
+        <mat-label>Responsável</mat-label>
+        <mat-select
+          required
+          [(ngModel)]="responsavelSelecionadoId"
+          name="personId"
+          #personId="ngModel"
+        >
+          <mat-option *ngFor="let r of responsaveis" [value]="r.id">
+            {{ r.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="personId.invalid && personId.touched">
+          Selecione um responsável
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Prioridade</mat-label>
+        <mat-select
+          required
+          [(ngModel)]="data.priority"
+          name="priority"
+          #priority="ngModel"
+        >
+          <mat-option *ngFor="let r of prioridades" [value]="r.id">
+            {{ r.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="priority.invalid && priority.touched">
+          Selecione um responsável
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Data final (deadline)</mat-label>
+      <input
+        matInput
+        required
+        [matDatepicker]="picker"
+        [(ngModel)]="dataSelecionada"
+        name="data"
+        (dateChange)="formatarData($event.value)"
+        #dataInput="ngModel"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="dataInput.invalid && dataInput.touched">
+        Informe a data
+      </mat-error>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="dialogRef.close()">
+      Cancelar
+    </button>
+    <button mat-raised-button color="primary" [disabled]="form.invalid">
+      Salvar
+    </button>
+  </mat-dialog-actions>
+</form>
