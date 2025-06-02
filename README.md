@@ -2,6 +2,8 @@
 
 Uma aplicação simples de tarefas com frontend em Angular e backend em Spring Boot, utilizando PostgreSQL via Docker.
 
+Aplicação disponível em: https://tasks.henriquelabs.com.br/
+
 ---
 
 ## ✅ Requisitos
